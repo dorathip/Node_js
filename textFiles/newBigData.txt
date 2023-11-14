@@ -1,0 +1,583 @@
+Angular - (Class Notes)
+Angular CLI commands used for creating,building apps and etc are here:
+Concept command
+Angular CLI installation Npm install -g @angular/cli
+How to check the installed version Ng –version
+Generating Angular Application Ng new <app-name>
+Execute the app Ng server
+Run the unit tests Ng test
+Run E2E tests Ng e2e
+Run lint checks Ng lint
+Generate build Ng build
+Extract i18n messages from templates Ng i18n
+Changing default host Ng serve –host 0.0.0.0 –port 4201
+Commands or Building blocks of Angular Application
+Component ng g c <component-name>
+Directive ng g d <directive-name>
+pipe ng g p
+service ng g s
+class ng g cl
+guard ng g g
+interface ng g i
+enum ng g e
+module ng g m
+Component : a component encapsulates the data , the HTML template and the
+logic . In angular, We can break these components into smaller potential
+components.
+Module : a module is a container of a group of related components. Every angular
+app will have at least one module by default , app.module.ts…as the application
+grows we can break this module into smaller and maintainable modules.
+Directives : wherever we are using a directive , that modifies the structure of DOM
+by adding or removing elements. *ngFor , *ngIf etc are the examples.
+https://angular.io/guide/built-in-directives
+Services : It is basically a class that has a well-defined purpose to do something.
+You can create a service class for data or logic that is not associated with any specific
+view to share across components. ( A reusable Angular service is designed to
+encapsulate business logic and data with different components of Angular. )
+➔ Services can inject shared data and methods into components.
+◆ Shared state : services can connect data between components and are
+especially useful when components are not in a child/parent relationship.
+◆ Shared Logic: stateless services that define common methods used in
+multiple components.
+Dependency Injection : The advantage of dependency injection is to divide the
+task among different services. The client service will not create the dependent object
+itself rather it will be created and injected by an Angular injector.
+Decorators: functions that accept arguements and prefixed with @ symbol. In
+angular , classes and properties are defined using Decorators . Decorators transform
+classes into a module,component, service ,pipe or a directive. Following are few
+commonly used Decorators in Angular
+@NgModule , @Component , @Directive , @Pipe , @injectable , @Inject , @input ,
+@Output , @ViewChild ,@ViewChildren , @ContentChild , @ContentChildren ,
+@HostListener , @HostBinding
+1. Angular Module :
+Angular apps are modular and named as AppModule(root module).
+Modules are a great way to organize an application and extend it with
+capabilities from external libraries. Many Angular libraries are modules, such
+as FormsModule,HttpClientModule and RouteModule. Third party modules
+are Angular material,Angular fire etc
+Command ⇒ ng g m core
+Declarations: (in module.ts file)
+In NgModule , the declaration property is an array that contains only angular
+components,directives,pipes .. declarations accepts only a set of declarables to
+the Angular module.
+now will create a service , ng g s user/user
+ng g c user
+ng g c core/header
+ng g d transform
+ng g p pipes/safe/safe
+Imports array :
+Used to extend the capabilities exported by some Angular modules. Error thrown if a
+declarable is added to it.
+Exports array :
+To expose the declarables and imported angular modules . it accepts a set of
+declarables registered on an angular module. Exported declarations are the module’s
+public API.
+ng g p core/core-pipe
+ng g d core/core-directive
+Providers:
+Providers accept a set of injectable objects and make them available in the injector of
+the angular module. Make dependencies available to inject in the declarables or
+services that are a child of this angular module’s injector.
+Bootstrap:
+As soon as we add UserComponent to bootstrap array , we will be able to see the
+markup for the usercomponent. it accepts only angular components
+2. Component
+Ng g c components/chat
+Ng g c components/users
+Ng g c components/users/user
+Metadata: (selector , template , templateUrl, styles, styleUrls,
+Providers, animations,encapsulation)
+Styles:[`
+P{ color : blue ; }
+`]
+Providers in app.ts file : type this ,, providers:[DataService] , this will
+tell the injector of this component to create a new instance of the
+dataservice and not to use the existing one.
+Animations : ( in app.module.ts )
+import { BrowserAnimationModule} from “@angular/platform-browser/animations”;
+add it to the imports array ,
+Encapsulation : this determines the view encapsulation, state for a
+particular component (along with which strategy to use)
+Bindings : (communication between Template & TypeScript class)
+Types of Bindings are :
+● string interpolation → {{value}}
+● Property binding → [property] = value
+● Event Binding → (event) = “handler”
+● Dual Data Binding → [(ngModel)] = “property”
+● Along with these , we also have class binding , attribute binding and
+style binding.
+In string string interpolation , usage will be as follows:
+➔ {{ someProp }}
+➔ {{ ‘some text’ }}
+➔ {{ methodName() }}
+Create a component:
+In template:
+<p>{{message}}</p>
+<p innerText="{{message}}"> {{'no outcome'}}
+</p>
+<p> {{message + 'hai'}} </p>
+<p>{{ getMessage() }}</p>
+In TS file:
+getMessage(){
+console.log('this is from
+function');
+}
+Ts file :
+import { Component, OnInit } from '@angular/core';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+@Component({
+selector: 'app-str-int',
+templateUrl: './str-int.component.html',
+styleUrls: ['./str-int.component.css']
+})
+export class StrIntComponent implements OnInit {
+message = `We are the Techies from Fiable`;
+text='';
+constructor() { }
+ngOnInit(): void {
+}
+getMessage(){
+console.log('this is from function');
+return this.message;
+}
+}
+Html file:
+<p>{{message}}</p>
+<p innerText="{{message}}"> {{'super'}} </p>
+<p> {{message + 'hai'}} </p>
+<p>{{ getMessage() }}</p>
+Property Binding :
+Html file:
+<p [innerText]="message"></p>
+<input type="text" [value]="message">
+<p [innerText]="'first'+'second'"></p>
+<p [innerText]="getMessage()"></p>
+Event Binding:
+In html file:
+<button (click)="onClick()">click me</button>
+<input (keyup)="onKeyUp($event)" >
+<h3>Yesterday my mood was - {{mood}}</h3>
+<button (click)=" mood='😊' ">Click me to see my mood..</button>
+In ts file:
+mood=’😶’
+onClick(){
+alert('you clicked the button');
+}
+onKeyUp(x:any){
+this.text = x.target.value;
+console.log(this.text);
+}
+Component interaction - @input @output (two way Data Binding)
+In two way Data Binding , an angular component can accept Input as @Input
+Property and Emit inputChange as an @Output property.
+https://angular.io/guide/two-way-binding
+The [(ngModel)] syntax is the recommended way of two-way data
+binding.
+Two way binding example : (create a component with name counter)
+Counter.component.ts :
+import { Component, EventEmitter, Input, OnInit, Output } from
+'@angular/core';
+@Component({
+selector: 'app-counter',
+templateUrl: './counter.component.html',
+styleUrls: ['./counter.component.css']
+})
+export class CounterComponent implements OnInit {
+@Input() counter!: number;
+@Output() counterChange = new EventEmitter<number>();
+dec(){
+--this.counter;
+this.counterChange.emit(this.counter);
+}
+inc(){
+++this.counter;
+this.counterChange.emit(this.counter);
+}
+constructor() { }
+ngOnInit(): void {
+}
+}
+Counter.component.html
+<div class="container">
+<label>Value </label> {{counter}}
+<hr/>
+<button class="btn btn-primary" (click)="dec()"
+title="smaller">-</button>
+<br> <br>
+<button class="btn btn-primary" (click)="inc()"
+title="bigger">+</button>
+</div>
+App.component.ts
+import { Component } from '@angular/core';
+@Component({
+selector: 'app-root',
+templateUrl: './app.component.html',
+styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+counterValue = 5;
+}
+App.component.html
+<app-counter [(counter)]="counterValue">
+</app-counter>
+Routing :
+Create , ng g v components/home , about , blog , header ..
+In header-html , copy navbar from bootstrap.(in app component place this
+header selector)
+Ng g m app-routing (creating a routing module.
+In this , import { RouterModule, Routes } from ‘@angular/router’;
+In app-routing.module.ts :
+import { NgModule } from '@angular/core';
+import { RouterModule , Routes } from '@angular/router';
+import { AboutComponent } from '../components/about/about.component';
+import { BlogComponent } from '../components/blog/blog.component';
+import { HomeComponent } from '../components/home/home.component';
+const appRoutes : Routes = [
+{ path : 'home' , component:HomeComponent} ,
+{ path : 'about' , component:AboutComponent} ,
+{ path : 'blog' , component:BlogComponent} ,
+]
+@NgModule({
+declarations: [],
+imports: [RouterModule.forRoot(appRoutes)],
+exports: [RouterModule]
+})
+export class AppRoutingModule { }
+Add AppRoutingModule in app.module.ts file
+In app.component.html:
+<app-header></app-header>
+<router-outlet></router-outlet>
+In header-html , replace href with routerLink..(with this application won't
+reload).
+<li routerLinkActive=”active” > ⇒ will this link active
+Child Components:
+Create users component and Add the following path in app-routing.module.ts
+file.
+{ path : 'users' , component:UsersComponent}
+Add some users list in user.ts file .
+Visit the link , https://jsonplaceholder.typicode.com/
+And copy users data and paste it in the file.
+Users : any = [paste data here]
+Goto users.html file :
+<div container>
+<div class="col-md-4">
+<ul class="list-group">
+<li class="list-group-item" *ngFor="let user of users">
+{{ user.name }}
+</li>
+</div>
+</div>
+User.name ll make it as a link. So click on that to get full details.
+Create another component , components/user-details. (following code)
+<div class="col-sm-8">
+<app-user-details> </app-user-details>
+</div>
+Now will create another component , components/user ..
+We will pass a user variable in users.html as input property.
+User.ts
+import { Component, Input} from '@angular/core';
+@Component({
+selector: 'app-user',
+templateUrl: './user.component.html',
+styleUrls: ['./user.component.css']
+})
+export class UserComponent implements OnInit {
+@Input() user;
+}
+User.html (copy from users.html)
+<a routerLink="./{{ user.id }}">{{ user.name }}</a>
+In users.html ⇒
+Replace the above tag with
+Child Routing :
+First we will add this line in , app-routing.module ..
+{ path : '**'
+, redirectTo:'/home'
+, pathMatch:'full'}
+In users.html:
+<div class="col-sm-8">
+<router-outlet></router-outlet>
+</div>
+In app-routing-module changes as follows:
+{ path : 'users' , component:UsersComponent , children: [
+{ path: ':id', component:UserDetailsComponent },
+{ path: '', component: PlaceholderComponent }
+]
+},
+Now we can observe routing with id and without id..
+In user-details .ts file copy the following:
+users: Array<{ id:number, name:string, email:string}> = [
+{
+"id": 1,
+"name": "Leanne Graham",
+"email": "Sincere@april.biz",
+},
+{
+"id": 2,
+"name": "Ervin Howell",
+"email": "Shanna@melissa.tv",
+},
+Download the code (until here)
+https://drive.google.com/file/d/1rlGBFRety4FBj35-HYhGK0-CO8-5XsiD/vie
+w?usp=sharing
+Copy the user data form users.ts to user-details.ts file , using the id parameter
+in the url we can access the data.
+In user-details.ts file (activate router :: using because we are reading the id from url)
+import { ActivatedRoute } from '@angular/router';
+constructor(private activatedRoute: ActivatedRoute) { }
+ngOnInit(): void {
+this.activatedRoute.params.subscribe((params)=>{
+console.log('parameters from url' , params);
+})
+}
+ngOnInit(){
+this.activatedRoute.params.subscribe((params)=>{
+this.user = this.users.filter((user) =>{
+return user.id === +params['id'];
+})[0];
+});
+}
++params will convert the variable into a number.
+User-details.html
+<p>
+The Selected User Details are :: <br>
+User Id: {{user.id}} <br>
+User Name : {{ user.name }} <br>
+User Email : {{ user.email }} <br>
+</p>
+v6
+Path match and Route Types :
+In user.html ,
+<a routerLink="./{{ user.id }}">{{ user.name }}</a> | <a routerLink="../"> Home</a>
+Route Guards :
+Guards used to prevent from navigating to or from a particular route. They
+allow us to restrict access to certain routes and validate before navigating.
+Types of Guards :
+● canActivate → can visit a route or not
+● CanActivateChild → can visit a routes children
+● canDeactivate → user can exit a route or not
+● canLoad → if lazy-loaded modules should be loaded
+● Resolve → perform route data retrieval before route activation
+Ng g g guards/auth/auth
+In app-routing.module.ts file ,
+@NgModule({
+declarations: [],
+providers: [AuthGuard],
+imports: [RouterModule.forRoot(appRoutes)],
+exports: [RouterModule]
+})
+{ path : 'blog' , component:BlogComponent , canActivate:[AuthGuard]} ,
+In auth.guard.ts file ,
+True to false … .. we cant navigate to blog..
+In app-routing.module.ts file ,
+{ path : 'users' ,
+component : UsersComponent ,
+canActivateChild :[AuthGuard],
+children:[
+{ path : ':id' , component:UserDetailsComponent},
+//{ path :'' ,component:PlaceholderComponent }
+] },
+{ path : '**' , redirectTo:('/home'),pathMatch:'full'}
+ng g c components/message-list
+In messagelist.ts file , paste the following code;
+messages : Array<{message:string}>=[];
+message : string='';
+addMessage(){
+this.messages.push({message : this.message});
+this.message='';
+}
+onMessageDelete($event:any){
+this.messages.splice($event,1);
+}
+changeFirstMessage(){
+this.messages[0].message = ' this is new message ';
+}
+canDeactivate :
+ng g g guards/confirmation/confirmation
+Dependency Injection
+DI allows us to inject dependencies in different components across our
+applications , without knowing how those dependencies are created , or what
+dependencies they need themselves.
+● Injector : create instances of dependencies
+● Provider : tells the injector how to create an instance of a dependency.
+A provider takes a token and maps that to a factory function that creates
+an object.
+● Dependency : a dependency is the type of which an object should be
+created.
+Services
+An angular service is simply a class that allows us to access its defined
+properties and methods. Services are decorated with @injectable to allow
+injection of other services as dependencies. Services in angular are singletons
+and are registered on modules or components thro providers.
+Uses of Services:
+Share the same code across multiple files.
+Hold the business logic and interact with the backend.
+Observables
+It is a design pattern used for Asynchronous Programming.
+Observable is an object that streams data from some data source..It streams data
+to subscribers using a push model and the data pushed to subscribers can be
+transformed on the way from source to subscriber.
+Observables Promises
+Multiple values Single Value
+cancellable Not Cancellable
+Can use operators : map,filter,etc No Operators
+(delete the guards ..)
+The database we are using in this app is in two files. So to place that content in
+a service file , instead of two files.
+Ng g s services/user/user
+Cut the data from users.ts file .. and paste it in user.service.ts file .
+Directives :
+The Angular directive helps us to manipulate the DOM. we can change the
+appearance, behavior, or layout of a DOM element using the Directives. Directives
+are configured through metadata passed to the @Directive decorator. Directives
+are registered in the declarations array of NgModule. Three types of directives are
+there namely components , Structural Directives and Attribute Directives.
+Built-In Directives :
+1. Structural
+● NgFor
+● NgIf
+● NgSwitch
+2. Attribute
+● NgClass
+● NgStyle
+● NgNonBindable
+Example of NgSwitch :
+Import FormsModule in app.module.ts file….(common module as well)
+In ts file → num : number=0;
+In template file :
+<div>
+<input type="text" [(ngModel)]="num" >
+<div [ngSwitch]="num">
+<div *ngSwitchCase="'1'">One</div>
+<div *ngSwitchCase="'2'">Two</div>
+<div *ngSwitchCase="'3'">Three</div>
+<div *ngSwitchCase="'4'">Four</div>
+<div *ngSwitchCase="'5'">Five</div>
+<div *ngSwitchDefault>This is Default</div>
+</div>
+</div>
+NgClass example:
+In css file → .red { color: red; }
+.size20 { font-size: 20px; }
+In html file → <div [ngClass]="'red size20'"> Red Text with Size 20px </div>
+NgStyle example:
+In ts file → color: string= 'red';
+In Html file → <input [(ngModel)]="color" />
+<div [ngStyle]="{'color': color}">Change my color</div>
+Or
+<div [ngStyle]="{'background-color':status === 'error' ? 'red' : 'blue' }"></<div>
+ngNonBindable example :
+<div>
+<p>This code is compiled by AngularJS: {{ 5+5 }}</p>
+<p ngNonBindable>This code is not compiled by AngularJS: {{ 5+5 }}</p>
+</div>
+Forms: (template driven approach & reactive )
+Template Driven :
+The simple way to create forms in angualr. We generally use the form tag and angular
+interprets as a form and creates a form object. Using NgModel we can add controls and
+we can group them using NgModelGroup . form data is exported as JSON values.
+Reactive Form :
+Template Driven example :
+In app.module.ts → imports , FormsModule
+Create a new component , in components/new-user
+In template : (lengthy bootstrap template with less code)
+<div class="container">
+<h3>New user form</h3>
+form>(div.form-group>label[for='name']+input[name='name'].form-control)*5
+This will create 5 rows ,
+5 columns as → name ,username,email, phone, website → give labels as well
+In template:
+Add ngmodel to input (angular treats ngModel is a form controllers)
+<form (ngSubmit)="submit()">
+In ts file :
+submit(){
+console.log("form submitted");
+}
+Template file :
+<div>
+<input type="text" class="form-control" [(ngModel)]="num" >
+<div [ngSwitch]="num">
+<div *ngSwitchCase="'1'">One</div>
+<div *ngSwitchCase="'2'">Two</div>
+<div *ngSwitchCase="'3'">Three</div>
+<div *ngSwitchCase="'4'">Four</div>
+<div *ngSwitchCase="'5'">Five</div>
+<div *ngSwitchDefault>This is Default</div>
+</div>
+</div>
+<div>
+<p>This code is compiled by AngularJS: {{ 5+5 }}</p>
+<p ngNonBindable>This code is not compiled by AngularJS: {{ 5+5 }}</p>
+</div>
+<div class="container">
+<h3>New user form</h3>
+<form (ngSubmit)="submit()">
+<div class="form-control">
+<label for="name">Name</label>
+<input type="text" name="name" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Username</label>
+<input type="text" name="username" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Email</label>
+<input type="text" name="email" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Phone</label>
+<input type="text" name="phone" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">WebLink</label>
+<input type="text" name="weblink" class="form-control" ngModel></div>
+<pre></pre>
+<hr>
+<button class="btn btn-primary" type="submit">Submit</button>
+</form>
+</div>
+<div class="container">
+<h3>New user form</h3>
+<form #userForm (ngSubmit)="submit(userForm)">
+<div class="form-control">
+<label for="name">Name</label>
+<input type="text" name="name" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Username</label>
+<input type="text" name="username" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Email</label>
+<input type="text" name="email" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">Phone</label>
+<input type="text" name="phone" class="form-control" ngModel></div>
+<div class="form-control">
+<label for="name">WebLink</label>
+<input type="text" name="weblink" class="form-control" ngModel></div>
+<pre></pre>
+<hr>
+<button class="btn btn-primary" type="submit">Submit</button>
+</form>
+</div>
+Change submit method in ts file .. give parameter
+<form #userForm="ngForm" (ngSubmit)="submit(userForm)">
+Make button Disable :
+<button class="btn btn-primary" type="submit" [disabled]= "userForm.invalid">
+Submit</button>
+And
+Give required to any input box in template
+Other field validations along with required are → minlength , maxlength , pattern
+<input required minlength="8" maxlength="20" pattern="Amar Reddy" type="text"
+name="name" class="form-control" ngModel>
+Display alert , if you dont enter name in the input box :
+<div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+<p>Name is required</p>
+</div>
+Or
+<input required minlength="8" maxlength="20" pattern="Amar Reddy" type="text"
+name="name" class="form-control" ngModel #name="ngModel">
+<div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+<p *ngIf="name.errors?.['required']">Name is required</p>
+<p *ngIf="name.errors?.['minlength']">min of 8 chars is required</p>
+<p *ngIf="name.errors?.['maxlength']">max of 8 chars is required</p>
+</div>
+Adding check boxes , radio button and dropdown :
+In html file ,
+div.radio>label>input[type='radio']
+1
+1Delivered By Amar N Reddy (+91) 96862 01981 narpalaamar@gmail.com

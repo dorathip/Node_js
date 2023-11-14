@@ -1,0 +1,12 @@
+02112023	14:41:18	6a0d784c-613b-4553-9a74-46b502e7f460	GET	undefined	/new-page
+02112023	14:41:18	bc4b40a6-ab79-42cd-beac-f01d87853cbb	GET	undefined	/css/style.css
+02112023	14:41:18	132aa6a9-220c-4145-a057-3c377709c62c	GET	undefined	/img/mountain.jpg
+02112023	15:18:24	47efa1bf-fc9a-469c-a9c3-e5f3093cad88	GET	undefined	/new-page
+02112023	15:18:24	b928ee82-ec65-492f-911a-e02a836b85f4	GET	undefined	/css/style.css
+02112023	15:18:24	930907af-b289-4f8d-8c6e-df91597e1ac7	GET	undefined	/img/mountain.jpg
+02112023	15:23:58	38dde572-478b-46d8-91d5-5bb9a81012a5	OPTIONS	https://www.google.com	/
+02112023	15:23:58	0e397fc6-ed29-41b8-a37d-b60fa14582d8	GET	https://www.google.com	/
+02112023	15:29:19	f245f2b7-997d-4ca1-908b-fe892564f4af	OPTIONS	https://www.google.com	/
+02112023	15:29:19	ac2fed9b-0d60-457c-a19e-e94a090d33c2	GET	https://www.google.com	/
+02112023	16:32:59	5ab0e649-a6bb-47ec-a5f8-5a74cc70cc1f	OPTIONS	https://www.google.com	/
+02112023	16:32:59	ef301c20-5220-48fb-9b35-c5fb5b2ddd88	GET	https://www.google.com	/

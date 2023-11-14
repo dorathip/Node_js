@@ -1,0 +1,19 @@
+02112023	17:25:34	5252e559-e414-479b-a95f-db8659497df5	Error: Not allowed by CORS
+03112023	13:32:01	d6e2f45d-80f1-4648-a630-112a9fb08d3a	TypeError: res.sendFile is not a function
+03112023	13:32:51	5b34903b-919b-4758-b88b-c1819f36bb9d	TypeError: res.sendFile is not a function
+03112023	13:32:53	6c5189a4-d628-4740-a1ce-54fa70ac4bdd	TypeError: res.sendFile is not a function
+03112023	13:32:54	335a1fe8-b6a1-4999-b236-bc00f6121907	TypeError: res.sendFile is not a function
+03112023	13:32:55	49dc80d2-7d55-4510-8bb6-4cf5d0eb1baf	TypeError: res.sendFile is not a function
+03112023	13:42:33	c510e187-cc14-4eb1-b9e5-0faacff9d985	TypeError: res.sendFile is not a function
+03112023	13:42:36	94c8364d-1f84-4edd-b397-05bdf9a05fb8	TypeError: res.sendFile is not a function
+03112023	13:42:37	cc3692fe-1e74-4fe8-b015-d167bd258b70	TypeError: res.sendFile is not a function
+03112023	13:42:39	5e0b3ca6-4050-4698-906f-9a9696b6a078	TypeError: res.sendFile is not a function
+03112023	13:43:08	b3a2ec7f-43c1-4cff-9eac-27c0806db2c1	TypeError: res.sendFile is not a function
+03112023	13:43:15	7d1fe446-d1fa-45b5-b448-c82828889c19	TypeError: res.sendFile is not a function
+03112023	13:46:01	ee64d5ac-52de-4290-9e0e-9cc908e3ef90	TypeError: res.sendFile is not a function
+03112023	13:46:02	5988ae2f-7a10-4d06-abc6-103d884205fb	TypeError: res.sendFile is not a function
+03112023	13:46:03	bf79c24a-59f8-4122-b5a8-3d01642d7eff	TypeError: res.sendFile is not a function
+03112023	13:46:03	31f0ed68-5c1e-41f0-a849-d1983a095064	TypeError: res.sendFile is not a function
+03112023	13:46:04	16603a98-8f00-4845-8ae4-e58f730733a3	TypeError: res.sendFile is not a function
+03112023	13:46:57	588e300a-43d6-4a77-b63f-ac859d550cde	TypeError: res.sendFile is not a function
+04112023	15:50:25	5220f18d-3d5c-4121-a3ae-8b361a33d261	SyntaxError: Unexpected token } in JSON at position 23
